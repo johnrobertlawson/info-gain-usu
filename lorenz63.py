@@ -16,20 +16,11 @@ class Lorenz63:
         dxdt = self.sigma * (y - x) + drift[0]
         dydt = x * (self.rho - z) - y + drift[1]
         dzdt = x * y - self.beta * z + drift[2]
-        pass
         return [dxdt, dydt, dzdt]
 
     def run(self, num_steps, dt, spinup_steps=0, drift=None):
-        # No need - could pass in dt*spinup to be simpler
-        # spinup_steps = int(spinup_time / dt)
-        # total_steps = spinup_steps + num_steps
-        # total_steps = num_steps + spinup_steps
-
         t = np.arange(0, num_steps*dt, dt)
         result = odeint(self._lorenz_eq, self.state, t, (drift,))
-
-        # print(f"Before clipping, there are {num_steps} input and "
-        #       f"{result.shape} pts")
         return result[spinup_steps:]
 
 class Lorenz63Simulator:
@@ -66,7 +57,7 @@ class Lorenz63Simulator:
         perturbations = self.generate_perturbations([-perturbation_scale,perturbation_scale],
                                                     (num_perturbations,3))
         drift_perts = self.generate_perturbations([drift_minmax[0],drift_minmax[1]],(num_perturbations,3))
-        pass
+
         with mp.Pool(processes=(mp.cpu_count())-1) as pool:
             perturbed_series_list = pool.starmap(self._perturb_and_run,
                         [(truth_initial_state, num_steps, dt, spinup_time, p, True, dp)

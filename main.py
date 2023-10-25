@@ -112,8 +112,8 @@ def main():
     ylims = [40,250]
     # pcs = [99.99,]
     # pc = pcs[0]
-    pc = 95.0
-    rho = 166.095
+    pc = 99.9
+    rho = 166.1
     # rho = 28
     simulator = Lorenz63Simulator(rho=rho,rng=rng)
 
@@ -126,7 +126,7 @@ def main():
     dt = 0.01
     num_perturbations = 200
     # Initial-condition perturbations (will be pos/neg)
-    perturbation_scale = 1E-19
+    perturbation_scale = 5E-18
 
     # Max drift per time-step, uniform sampling
     # All positive to drive a consistent drift for each member from truth.
@@ -159,6 +159,7 @@ def main():
     for i, ps in enumerate(perturbed_series_list):
         # Slice the first (500*500) data points after spinup_time
         data_points = ps[:]
+        pass
 
         if i<3:
             do_plot = True
