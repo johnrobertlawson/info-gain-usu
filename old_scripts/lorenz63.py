@@ -65,3 +65,6 @@ class Lorenz63Simulator:
 
         # Only return w/z values
         return truth_series[:,2], perturbed_series_list
+
+
+
